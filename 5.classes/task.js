@@ -91,12 +91,13 @@ class Student {
     }
 
     addMark(mark, subject) {
+        if ((mark < 2) || (mark > 5)) {
+            return 0
+        }
         if (this.marks.hasOwnProperty(subject) != true) {
             this.marks[subject] = [];
         }
-        if ((mark < 2) && (mark > 5)) {
-            return
-        } else this.marks[subject].push(mark);
+        this.marks[subject].push(mark);
     }
 
     getAverageBySubject(subject) {
@@ -106,17 +107,17 @@ class Student {
     }
 
     getAverage() {
-        let arr = Object.keys(this.marks);
-        let sum = 0
-        let lengthSubject = 0
-        for (let i = 0; i < arr.length; i++) {
-            sum += this.marks[arr[i]].reduce((accum, item) => accum + item)
-            lengthSubject += this.marks[arr[i]].length
-        }
-        return sum / lengthSubject
 
-        if (this.marks.hasOwnProperty(subject) != true) {
-            return 0
-        }
+        if (!Object.keys(this.marks).length === false) {
+            let sum = 0
+            let lengthSubject = 0
+            let arr = Object.keys(this.marks);
+
+            for (let i = 0; i < arr.length; i++) {
+                sum += this.marks[arr[i]].reduce((accum, item) => accum + item)
+                lengthSubject += this.marks[arr[i]].length
+            }
+            return sum / lengthSubject
+        } else return 0
     }
 }
